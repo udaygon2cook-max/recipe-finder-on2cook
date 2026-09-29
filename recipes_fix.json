@@ -1435,13 +1435,13 @@
     "Image": "../test_images/CHICKEN TIKKA.jpg",
     "PopupImage": "../final_recipe_pdfs/CHICKEN TIKKA.pdf",
     "Ingredients": [
-      "Take Marinated Chicken 425 gm",
-      "Add Oil for Brushing  20 ml"
+      "Take Marinated Chicken 415 gm",
+      "Add Oil for Brushing  30 gm"
     ],
-    "Accessories": "Pan Honeycomb (Non-Stick)",
-    "Total Output": "350 GM",
+    "Accessories": "Pan Non-Coated (Ss)",
+    "Total Output": "350 G",
     "On2Cook Cooking Time": "4",
-    "Normal Cooking Time": "15 mins",
+    "Normal Cooking Time": "20 mins",
     "Modified": "2026-08-27T06:12:30Z",
     "IngredientImage": "../ingredient_images/CHICKEN TIKKA.png"
   },
@@ -3752,7 +3752,7 @@
     "PopupImage": "../final_recipe_pdfs/PENNE PESTO.pdf",
     "Ingredients": [
       "Mix Maida 20 g, Butter 30 g, Chopped Garlic 15 g, Milk 200 g, Raw Penne Pasta 100 g 365 gm",
-      "Diced Cut Vegetables & Mix Sauce  254 gm",
+      "Diced Cut Vegetables & Mix Sauce  256 gm",
       "Auto Water (Auto) 900 ml",
       "Blender  Pesto Recipe (Blender) 200 gm"
     ],
