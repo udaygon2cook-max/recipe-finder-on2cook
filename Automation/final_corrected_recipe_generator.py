@@ -171,86 +171,63 @@ def _resolve_output_pdf_path(output_pdf_path, candidate_name, source_path, recip
 
 
 # ===============================================================
-# INGREDIENT IMAGE LOOKUP + DISCLAIMER TEXT (module-level helpers)
+# INGREDIENT IMAGE LOOKUP (module-level helpers)
 # ===============================================================
-# recipes_fix.json carries a precomputed "IngredientImage" field per
-# recipe (see build_recipe_popups.py). We reuse that same lookup here
-# so ingredient-image resolution stays consistent across both scripts.
+# Keyed by the recipe's ZIP STEM (e.g. "THUKPA SOUP" from THUKPA SOUP.zip),
+# NOT by the name written inside the recipe txt. This is the same key
+# parse_txt_to_json.build_ingredient_image_index() uses, with the same
+# rules (sorted filenames, first match per stem.upper() wins), so the
+# popup PDF and recipes_fix.json always agree on which image a recipe
+# gets. It also reads ingredient_images/ directly, so it no longer
+# depends on recipes_fix.json, which is rebuilt AFTER popups in the
+# pipeline and is therefore one run stale at this point.
 
-_RECIPES_INDEX = None
+INGREDIENT_IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
+_INGREDIENT_IMAGE_INDEX = None
 
 
-def _load_recipes_index():
-    """Loads recipes_fix.json once per process, indexed by folder stem
-    (Path(recipe['Image']).stem, uppercased). Returns {} on any failure."""
-    global _RECIPES_INDEX
-    if _RECIPES_INDEX is not None:
-        return _RECIPES_INDEX
+def _load_ingredient_image_index():
+    """Scans INGREDIENT_IMAGE_DIR once per process -> {STEM_UPPER: full path}."""
+    global _INGREDIENT_IMAGE_INDEX
+    if _INGREDIENT_IMAGE_INDEX is not None:
+        return _INGREDIENT_IMAGE_INDEX
 
-    _RECIPES_INDEX = {}
-    if not os.path.exists(RECIPES_FIX_JSON):
-        print(f"⚠️  recipes_fix.json not found at {RECIPES_FIX_JSON} -- "
-              f"ingredient-image lookup will fall back to filename matching only.")
-        return _RECIPES_INDEX
+    index = {}
+    if not os.path.isdir(INGREDIENT_IMAGE_DIR):
+        print(f"⚠️  Ingredient image dir not found: {INGREDIENT_IMAGE_DIR}")
+        _INGREDIENT_IMAGE_INDEX = index
+        return index
 
-    try:
-        with open(RECIPES_FIX_JSON, 'r', encoding='utf-8') as f:
-            recipes = json.load(f)
-    except Exception as e:
-        print(f"⚠️  Could not read recipes_fix.json ({e}) -- "
-              f"ingredient-image lookup will fall back to filename matching only.")
-        return _RECIPES_INDEX
-
-    for recipe in recipes:
-        image_field = recipe.get('Image', '')
-        if not image_field:
+    for fname in sorted(os.listdir(INGREDIENT_IMAGE_DIR)):
+        path = os.path.join(INGREDIENT_IMAGE_DIR, fname)
+        name, ext = os.path.splitext(fname)
+        if not os.path.isfile(path) or ext.lower() not in INGREDIENT_IMAGE_EXTENSIONS:
             continue
-        stem = os.path.splitext(os.path.basename(image_field))[0].strip().upper()
-        if stem:
-            _RECIPES_INDEX[stem] = recipe
+        key = name.upper()
+        if key in index:
+            print(f"⚠️  Duplicate ingredient image for '{key}': "
+                  f"'{os.path.basename(index[key])}' and '{fname}' -- keeping the first")
+            continue
+        index[key] = path
 
-    print(f"✅ Loaded recipes_fix.json: {len(_RECIPES_INDEX)} recipe(s) indexed by folder stem")
-    return _RECIPES_INDEX
+    print(f"✅ Indexed {len(index)} ingredient image(s) from {INGREDIENT_IMAGE_DIR}")
+    _INGREDIENT_IMAGE_INDEX = index
+    return index
 
 
-def find_ingredient_image_path(recipe_stem):
-    """Authoritative lookup via recipes_fix.json's IngredientImage field,
-    falling back to a direct filename match in INGREDIENT_IMAGE_DIR."""
-    stem = (recipe_stem or '').strip()
+def find_ingredient_image_path(zip_stem):
+    """Returns the ingredient image path for this ZIP stem, or None."""
+    stem = (zip_stem or '').strip()
     if not stem:
         return None
 
-    index = _load_recipes_index()
-    recipe = index.get(stem.upper())
-    if recipe:
-        field = recipe.get('IngredientImage', '')
-        if field:
-            candidate = os.path.join(INGREDIENT_IMAGE_DIR, os.path.basename(field))
-            if os.path.exists(candidate):
-                print(f"🖼  Found ingredient image for '{stem}' via recipes_fix.json: {candidate}")
-                return candidate
-            else:
-                print(f"ℹ️  recipes_fix.json points to {candidate} but it doesn't exist on disk -- "
-                      f"trying filename fallback...")
-
-    # Fallback: direct filename match against files in INGREDIENT_IMAGE_DIR
-    if os.path.isdir(INGREDIENT_IMAGE_DIR):
-        for ext in ('.jpg', '.jpeg', '.png', '.webp'):
-            candidate = os.path.join(INGREDIENT_IMAGE_DIR, stem + ext)
-            if os.path.exists(candidate):
-                print(f"🖼  Found ingredient image for '{stem}' via filename fallback: {candidate}")
-                return candidate
-        stem_lower = stem.lower()
-        for fname in os.listdir(INGREDIENT_IMAGE_DIR):
-            name, ext = os.path.splitext(fname)
-            if name.strip().lower() == stem_lower and ext.lower() in ('.jpg', '.jpeg', '.png', '.webp'):
-                candidate = os.path.join(INGREDIENT_IMAGE_DIR, fname)
-                print(f"🖼  Found ingredient image for '{stem}' via case-insensitive fallback: {candidate}")
-                return candidate
+    path = _load_ingredient_image_index().get(stem.upper())
+    if path:
+        print(f"🖼  Found ingredient image for '{stem}': {path}")
+        return path
 
     print(f"ℹ️  No ingredient image found for '{stem}'")
     return None
-
 
 
 # ===============================================================
@@ -2653,6 +2630,9 @@ class RecipePDFGenerator:
                 candidate_name = extract_full_recipe_name_from_description(recipe_data)
                 final_output_path = _resolve_output_pdf_path(output_pdf_path, candidate_name, zip_path, recipe_data)
 
+                # Ingredient-image lookup is keyed by the ZIP stem, not the txt's internal name.
+                recipe_data['_zip_stem'] = os.path.splitext(os.path.basename(zip_path))[0]
+
                 self.generate_pdf(recipe_data, image_file, final_output_path, seconds_per_bar)
                 return final_output_path
 
@@ -3198,7 +3178,9 @@ class RecipePDFGenerator:
         # sizes BEFORE computing final page height, so everything fits
         # on one page with no separate render/stack/move steps.
         # -----------------------------------------------------------
-        recipe_name_for_lookup = recipe_data.get('name', ['recipe'])[0]
+        # Key = ZIP stem (set in process_zip_file). Falls back to the txt name only
+        # for the non-zip entry points, where no zip stem exists.
+        recipe_name_for_lookup = recipe_data.get('_zip_stem') or recipe_data.get('name', ['recipe'])[0]
         ingredient_image_path = find_ingredient_image_path(recipe_name_for_lookup)
         ingredient_img_height = self.get_ingredient_image_height(ingredient_image_path)
         (
