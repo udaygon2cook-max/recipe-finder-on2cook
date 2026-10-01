@@ -157,7 +157,10 @@ def build_ingredient_image_index():
     if not folder.is_dir():
         return index
 
-    for f in folder.iterdir():
+    # sorted by plain filename so the pick is identical on Windows and the Linux
+    # runner (iterdir() order is filesystem-dependent). The popup generator
+    # uses the same order + first-wins rule.
+    for f in sorted(folder.iterdir(), key=lambda p: p.name):
         if not f.is_file():
             continue
         if f.suffix.lower() not in INGREDIENT_IMAGE_EXTENSIONS:
