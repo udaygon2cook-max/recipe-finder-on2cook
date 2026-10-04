@@ -1435,13 +1435,13 @@
     "Image": "../test_images/CHICKEN TIKKA.jpg",
     "PopupImage": "../final_recipe_pdfs/CHICKEN TIKKA.pdf",
     "Ingredients": [
-      "Take Marinated Chicken 415 gm",
-      "Add Oil for Brushing  30 gm"
+      "Take Marinated Chicken 425 gm",
+      "Add Oil for Brushing  20 ml"
     ],
-    "Accessories": "Pan Non-Coated (Ss)",
-    "Total Output": "350 G",
+    "Accessories": "Pan Honeycomb (Non-Stick)",
+    "Total Output": "350 GM",
     "On2Cook Cooking Time": "4",
-    "Normal Cooking Time": "20 mins",
+    "Normal Cooking Time": "15 mins",
     "Modified": "2026-08-27T06:12:30Z",
     "IngredientImage": "../ingredient_images/CHICKEN TIKKA.png"
   },
@@ -2890,7 +2890,7 @@
     "Accessories": "Pan Non-Coated (Ss), Frying Kit",
     "Total Output": "250 G",
     "On2Cook Cooking Time": "2",
-    "Normal Cooking Time": "",
+    "Normal Cooking Time": "10 mins",
     "Modified": "2026-06-22T13:19:36Z",
     "IngredientImage": ""
   },
@@ -3752,7 +3752,7 @@
     "PopupImage": "../final_recipe_pdfs/PENNE PESTO.pdf",
     "Ingredients": [
       "Mix Maida 20 g, Butter 30 g, Chopped Garlic 15 g, Milk 200 g, Raw Penne Pasta 100 g 365 gm",
-      "Diced Cut Vegetables & Mix Sauce  256 gm",
+      "Diced Cut Vegetables & Mix Sauce  254 gm",
       "Auto Water (Auto) 900 ml",
       "Blender  Pesto Recipe (Blender) 200 gm"
     ],
@@ -3812,8 +3812,8 @@
     "On2Cook Cooking Time": "14",
     "Normal Cooking Time": "45 mins",
     "IngredientImage": "../ingredient_images/TIKKA GRAVY 1KG.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "DALMA (WITH SOAKED TOOR DAL)",
@@ -3870,8 +3870,8 @@
     "On2Cook Cooking Time": "8",
     "Normal Cooking Time": "",
     "IngredientImage": "../ingredient_images/BUTTER CHICKEN.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "VEG STIR FRY NOODLES",
@@ -4547,7 +4547,7 @@
     "Accessories": "Pan Non-Coated (Ss), Silicone Stirrer",
     "Total Output": "600 G",
     "On2Cook Cooking Time": "6",
-    "Normal Cooking Time": "",
+    "Normal Cooking Time": "25 mins",
     "Modified": "2026-06-05T09:04:53Z",
     "IngredientImage": ""
   },
@@ -4986,8 +4986,8 @@
     "On2Cook Cooking Time": "8",
     "Normal Cooking Time": "40 mins",
     "IngredientImage": "../ingredient_images/CHICKEN CURRY.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "AMRITSARI FISH",
@@ -7613,8 +7613,8 @@
     "On2Cook Cooking Time": "14",
     "Normal Cooking Time": "45 mins",
     "IngredientImage": "../ingredient_images/BHUNA GRAVY 1500.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "BROWN ONION RICE",
@@ -8314,7 +8314,7 @@
     "Accessories": "Pan Non-Coated (Ss), Frying Kit",
     "Total Output": "4 NOS (80100G PER PCS)",
     "On2Cook Cooking Time": "2",
-    "Normal Cooking Time": "",
+    "Normal Cooking Time": "10 mins",
     "Modified": "2026-08-06T07:16:23Z",
     "IngredientImage": ""
   },
@@ -8611,8 +8611,8 @@
     "On2Cook Cooking Time": "9",
     "Normal Cooking Time": "42 mins",
     "IngredientImage": "../ingredient_images/MYSORE PAK.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "VEG BIRYANI 1000G",
@@ -10168,8 +10168,8 @@
     "On2Cook Cooking Time": "6",
     "Normal Cooking Time": "20 mins",
     "IngredientImage": "../ingredient_images/SUJI HALWA.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "PANCHKUTIYU SHAK",
@@ -10787,11 +10787,11 @@
     "Ingredients": [
       "Take Ghee 30 ml",
       "Take  Curry Leaves Ginger Garlic  8 gm",
-      "Puree Raw Gravy Paste  338 gm",
+      "Puree Raw Gravy Paste  329 gm",
       "Take Chicken Curry Cut  500 gm",
-      "Take  Water 100 ml"
+      "Auto Water (Auto) 100 ml"
     ],
-    "Accessories": "Pan Honeycomb (Non-Stick), Silicone Stirrer",
+    "Accessories": "Pan Non-Coated (Ss), Silicone Stirrer",
     "Total Output": "750 GM",
     "On2Cook Cooking Time": "8",
     "Normal Cooking Time": "40 mins",
@@ -11402,7 +11402,7 @@
     "Accessories": "Pan Honeycomb (Non-Stick), Silicone Stirrer",
     "Total Output": "500 G",
     "On2Cook Cooking Time": "10",
-    "Normal Cooking Time": "",
+    "Normal Cooking Time": "25 mins",
     "Modified": "2026-06-22T13:19:36Z",
     "IngredientImage": ""
   },
@@ -11956,8 +11956,8 @@
     "On2Cook Cooking Time": "12",
     "Normal Cooking Time": "60 mins",
     "IngredientImage": "../ingredient_images/WHITE GRAVY 1700.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "MUSHROOM SAOJI",
@@ -12064,7 +12064,7 @@
       "Sugar 100 g, Milk Maid 50 g, Green Cardamom Powder 2 g 152 gm"
     ],
     "Accessories": "Pan Honeycomb (Non-Stick), Silicone Stirrer",
-    "Total Output": "",
+    "Total Output": "1000 G",
     "On2Cook Cooking Time": "15",
     "Normal Cooking Time": "40 mins",
     "Modified": "2026-06-22T13:19:36Z",
@@ -12642,8 +12642,8 @@
     "On2Cook Cooking Time": "14",
     "Normal Cooking Time": "",
     "IngredientImage": "../ingredient_images/PEAS PULAO.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "LEMON THYME CHICKEN RICE",
@@ -14579,8 +14579,8 @@
     "On2Cook Cooking Time": "13",
     "Normal Cooking Time": "45 mins",
     "IngredientImage": "../ingredient_images/MAKHANI GRAVY1K.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "ASIAN STIR FRY CHICKEN",
@@ -14760,8 +14760,8 @@
     "On2Cook Cooking Time": "12",
     "Normal Cooking Time": "45 mins",
     "IngredientImage": "../ingredient_images/VEG GRAVY 1KG.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "DHABA MUTTON",
@@ -15087,8 +15087,8 @@
     "On2Cook Cooking Time": "18",
     "Normal Cooking Time": "60 mins",
     "IngredientImage": "",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "CORN SALT & PEPPER",
@@ -15376,8 +15376,8 @@
     "On2Cook Cooking Time": "12",
     "Normal Cooking Time": "45 mins",
     "IngredientImage": "../ingredient_images/KADAI GRAVY 1200.png",
-    "hiddenReason": "not needed anymore",
-    "hidden": true
+    "hidden": true,
+    "hiddenReason": "not needed anymore"
   },
   {
     "Recipe Name": "CRISPY VEG FRY",

@@ -1,1 +1,105 @@
-{"Ingredients": [{"app_audio": "Raw Raw Pasta 400 gm", "audio": "Raw", "audioI": "Raw Pasta", "audioP": "Raw", "audioQ": "400", "audioU": "gm", "id": 1, "image": "", "pan_type": "SS", "text": "", "title": "Raw Pasta", "weight": "400 gm"}, {"app_audio": "Auto Water (Auto) 1350 ml", "audio": "Auto", "audioI": "Water (Auto)", "audioP": "Auto", "audioQ": "1350", "audioU": "ml", "id": 2, "image": "", "pan_type": "SS", "text": "", "title": "Water (Auto)", "weight": "1350 ml"}], "Instruction": [{"Audio": "", "Indtime_lid_con": "", "Induction_on_time": "360", "Induction_power": "100", "Magnetron_on_time": "360", "Magnetron_power": "100", "Text": "RAW PASTA ", "Weight": "400 gm", "app_audio": " RAW PASTA ", "audioI": "RAW PASTA ", "audioP": "", "audioQ": "400", "audioU": "6Minute", "durationInSec": 360, "id": 1, "image": "", "lid": "close", "mag_severity": "high", "pump_on": "65", "purge_on": "", "skip": "", "stirrer_on": "4", "threshold": "0", "wait_time": "", "warm_time": ""}, {"Audio": "", "Indtime_lid_con": "", "Induction_on_time": "480", "Induction_power": "100", "Magnetron_on_time": "480", "Magnetron_power": "100", "Text": "RAW PASTA ", "Weight": "400 gm", "app_audio": " RAW PASTA ", "audioI": "RAW PASTA ", "audioP": "", "audioQ": "400", "audioU": "8Minute", "durationInSec": 480, "id": 2, "image": "", "lid": "close", "mag_severity": "high", "pump_on": "70", "purge_on": "", "skip": "true", "stirrer_on": "4", "threshold": "0", "wait_time": "", "warm_time": ""}], "audio1": [" BOILED PASTA "], "audio2": ["preparation"], "category": "0", "description": "BOILED PENNE PASTA \nNORMAL COOKING TIME 50 MINUTES \nFINAL OUTPUT 900G\n\nACCESSORIES\nPan Non-Coated (SS)\nSilicone Stirrer\n", "difficulty": "Easy", "id": 656, "imageUrl": "file:///data/user/0/com.invent.ontocook/files/OnToCook/%20Boiled%20PENNE%20PASTA/%20Boiled%20PENNE%20PASTA.jpg", "isSelected": false, "name": [" BOILED PASTA "], "subCategories": "", "tags": ""}
+{
+  "Ingredients": [
+    {
+      "app_audio": "Raw Raw Pasta 400 gm",
+      "audio": "Raw",
+      "audioI": "Raw Pasta",
+      "audioP": "Raw",
+      "audioQ": "400",
+      "audioU": "gm",
+      "id": 1,
+      "image": "",
+      "pan_type": "SS",
+      "text": "",
+      "title": "Raw Pasta",
+      "weight": "400 gm"
+    },
+    {
+      "app_audio": "Auto Water (Auto) 1350 ml",
+      "audio": "Auto",
+      "audioI": "Water (Auto)",
+      "audioP": "Auto",
+      "audioQ": "1350",
+      "audioU": "ml",
+      "id": 2,
+      "image": "",
+      "pan_type": "SS",
+      "text": "",
+      "title": "Water (Auto)",
+      "weight": "1350 ml"
+    }
+  ],
+  "Instruction": [
+    {
+      "Audio": "",
+      "Indtime_lid_con": "",
+      "Induction_on_time": "360",
+      "Induction_power": "100",
+      "Magnetron_on_time": "360",
+      "Magnetron_power": "100",
+      "Text": "RAW PASTA ",
+      "Weight": "400 gm",
+      "app_audio": " RAW PASTA ",
+      "audioI": "RAW PASTA ",
+      "audioP": "",
+      "audioQ": "400",
+      "audioU": "6Minute",
+      "durationInSec": 360,
+      "id": 1,
+      "image": "",
+      "lid": "close",
+      "mag_severity": "high",
+      "pump_on": "65",
+      "purge_on": "",
+      "skip": "",
+      "stirrer_on": "4",
+      "threshold": "0",
+      "wait_time": "",
+      "warm_time": ""
+    },
+    {
+      "Audio": "",
+      "Indtime_lid_con": "",
+      "Induction_on_time": "480",
+      "Induction_power": "100",
+      "Magnetron_on_time": "480",
+      "Magnetron_power": "100",
+      "Text": "RAW PASTA ",
+      "Weight": "400 gm",
+      "app_audio": " RAW PASTA ",
+      "audioI": "RAW PASTA ",
+      "audioP": "",
+      "audioQ": "400",
+      "audioU": "8Minute",
+      "durationInSec": 480,
+      "id": 2,
+      "image": "",
+      "lid": "close",
+      "mag_severity": "high",
+      "pump_on": "70",
+      "purge_on": "",
+      "skip": "true",
+      "stirrer_on": "4",
+      "threshold": "0",
+      "wait_time": "",
+      "warm_time": ""
+    }
+  ],
+  "audio1": [
+    " BOILED PASTA "
+  ],
+  "audio2": [
+    "preparation"
+  ],
+  "category": "0",
+  "description": "BOILED PASTA (PENNE)\nNORMAL COOKING TIME 50 MINUTES \nFINAL OUTPUT 900G\n\nACCESSORIES\nPan Non-Coated (SS)\nSilicone Stirrer\n",
+  "difficulty": "Easy",
+  "id": 656,
+  "imageUrl": "file:///data/user/0/com.invent.ontocook/files/OnToCook/%20Boiled%20PENNE%20PASTA/%20Boiled%20PENNE%20PASTA.jpg",
+  "isSelected": false,
+  "name": [
+    " BOILED PASTA "
+  ],
+  "subCategories": "",
+  "tags": ""
+}
