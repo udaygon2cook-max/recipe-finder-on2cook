@@ -90,6 +90,12 @@ def main():
         step_header(2, "Download ZIPs from Smartsheet (all, unconditionally)")
         downloaded_stems = download_zips.download_all_zips(stale_stems)
         updated_stems = stale_stems | downloaded_stems
+        # Smartsheet attachment names can have a trailing space before ".zip"
+        # (e.g. "SOOJI KHEER .zip"), so those stems arrive as "SOOJI KHEER ".
+        # extract_zips / generate_popup_images work with the stripped on-disk
+        # name, so without this they never matched and were skipped as
+        # "already extracted" / "PDF exists". Add the stripped form too.
+        updated_stems = updated_stems | {s.strip() for s in updated_stems}
 
         step_header(3, "Extract ZIPs (all, unconditionally)")
         extract_zips.extract_all_zips(updated_stems)
