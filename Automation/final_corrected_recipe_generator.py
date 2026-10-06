@@ -186,13 +186,23 @@ INGREDIENT_IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
 _INGREDIENT_IMAGE_INDEX = None
 
 
+# >>>>>>>>>> CHANGED (1/3) START: image lookup now handles trailing spaces / duplicate names >>>>>>>>>>
+def _norm(s):
+    """CHANGED: normalize a name -> collapse all whitespace, strip ends, UPPERCASE."""
+    return ' '.join((s or '').split()).upper()
+
+
 def _load_ingredient_image_index():
-    """Scans INGREDIENT_IMAGE_DIR once per process -> {STEM_UPPER: full path}."""
+    """CHANGED: Scans INGREDIENT_IMAGE_DIR once per process.
+    Returns {'exact': {STEM_UPPER: path}, 'norm': {NORMALIZED_STEM: [paths...]}}
+      - 'exact' keeps spaces exactly as in the filename ("ALMOND KHEER " != "ALMOND KHEER")
+      - 'norm'  ignores stray spaces, and may hold several candidates
+    """
     global _INGREDIENT_IMAGE_INDEX
     if _INGREDIENT_IMAGE_INDEX is not None:
         return _INGREDIENT_IMAGE_INDEX
 
-    index = {}
+    index = {'exact': {}, 'norm': {}}
     if not os.path.isdir(INGREDIENT_IMAGE_DIR):
         print(f"⚠️  Ingredient image dir not found: {INGREDIENT_IMAGE_DIR}")
         _INGREDIENT_IMAGE_INDEX = index
@@ -203,31 +213,44 @@ def _load_ingredient_image_index():
         name, ext = os.path.splitext(fname)
         if not os.path.isfile(path) or ext.lower() not in INGREDIENT_IMAGE_EXTENSIONS:
             continue
-        key = name.upper()
-        if key in index:
-            print(f"⚠️  Duplicate ingredient image for '{key}': "
-                  f"'{os.path.basename(index[key])}' and '{fname}' -- keeping the first")
-            continue
-        index[key] = path
+        index['exact'].setdefault(name.upper(), path)           # exact key (spaces kept)
+        index['norm'].setdefault(_norm(name), []).append(path)  # normalized key (may be several)
 
-    print(f"✅ Indexed {len(index)} ingredient image(s) from {INGREDIENT_IMAGE_DIR}")
+    print(f"✅ Indexed {len(index['exact'])} ingredient image(s) from {INGREDIENT_IMAGE_DIR}")
     _INGREDIENT_IMAGE_INDEX = index
     return index
 
 
 def find_ingredient_image_path(zip_stem):
-    """Returns the ingredient image path for this ZIP stem, or None."""
-    stem = (zip_stem or '').strip()
-    if not stem:
+    """CHANGED: Returns the ingredient image path for this ZIP stem, or None.
+    1) exact match first   ("xxx " -> "xxx .png", "xxx" -> "xxx.png")
+    2) fallback ignoring spaces, ONLY if exactly one image matches
+    3) if several images match -> skip + warn (never pick the wrong one)
+    NOTE: the raw stem is NOT stripped here, so trailing spaces still count for the exact match.
+    """
+    stem = zip_stem or ''
+    if not stem.strip():
         return None
+    idx = _load_ingredient_image_index()
 
-    path = _load_ingredient_image_index().get(stem.upper())
+    # 1) exact match
+    path = idx['exact'].get(stem.upper())
     if path:
-        print(f"🖼  Found ingredient image for '{stem}': {path}")
+        print(f"🖼  Exact ingredient image for '{stem}': {path}")
         return path
 
-    print(f"ℹ️  No ingredient image found for '{stem}'")
+    # 2) normalized fallback (only when unambiguous)
+    candidates = idx['norm'].get(_norm(stem), [])
+    if len(candidates) == 1:
+        print(f"🖼  Fuzzy ingredient image for '{stem}': {candidates[0]}")
+        return candidates[0]
+    if len(candidates) > 1:
+        print(f"⚠️  Ambiguous images for '{stem}', skipping: "
+              f"{[os.path.basename(c) for c in candidates]}")
+    else:
+        print(f"ℹ️  No ingredient image found for '{stem}'")
     return None
+# <<<<<<<<<< CHANGED (1/3) END <<<<<<<<<<
 
 
 # ===============================================================
@@ -2644,6 +2667,9 @@ class RecipePDFGenerator:
         os.makedirs(output_directory, exist_ok=True)
         
         results = []
+        # >>>>>>>>>> CHANGED (2/3) START: track PDF names already used in this run >>>>>>>>>>
+        used_pdf_paths = set()
+        # <<<<<<<<<< CHANGED (2/3) END <<<<<<<<<<
         
         for i, zip_path in enumerate(zip_file_paths, 1):
             print(f"\n📦 Processing file {i}/{len(zip_file_paths)}: {os.path.basename(zip_path)}")
@@ -2664,6 +2690,13 @@ class RecipePDFGenerator:
                             recipe_data = json.load(f)
                 zip_basename = sanitize_filename(recipe_data.get('name', ['recipe'])[0])
                 output_pdf_path = os.path.join(output_directory, f"{zip_basename}.pdf")
+                # >>>>>>>>>> CHANGED (3/3) START: avoid overwriting when two zips give the same PDF name >>>>>>>>>>
+                n = 2
+                while output_pdf_path in used_pdf_paths:
+                    output_pdf_path = os.path.join(output_directory, f"{zip_basename}_{n}.pdf")
+                    n += 1
+                used_pdf_paths.add(output_pdf_path)
+                # <<<<<<<<<< CHANGED (3/3) END <<<<<<<<<<
                 
                 # Process this individual zip file using existing method
                 final_output_path = self.process_zip_file(zip_path, output_pdf_path, seconds_per_bar)
